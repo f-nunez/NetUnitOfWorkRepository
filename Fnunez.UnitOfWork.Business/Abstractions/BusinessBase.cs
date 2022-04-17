@@ -39,6 +39,18 @@ public abstract class BusinessBase<R, M> where M : ModelBase where R : GenericRe
         await Repository.SaveChangesAsync();
     }
 
+    public virtual void DeleteRange(IEnumerable<M> entities)
+    {
+        Repository.DeleteRange(entities);
+        Repository.SaveChanges();
+    }
+
+    public virtual async Task DeleteRangeAsync(IEnumerable<M> entities)
+    {
+        await Repository.DeleteRangeAsync(entities);
+        await Repository.SaveChangesAsync();
+    }
+
     public IEnumerable<M> Get(Expression<Func<M, bool>> filter = null, Func<IQueryable<M>, IOrderedQueryable<M>> orderBy = null, int? skip = null, int? take = null, bool disableTracking = true, params string[] includedProperties)
     {
         return Repository.Get(filter, orderBy, skip, take, disableTracking, includedProperties).ToList();
