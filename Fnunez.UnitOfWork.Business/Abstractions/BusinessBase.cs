@@ -39,14 +39,14 @@ public abstract class BusinessBase<R, M> where M : ModelBase where R : GenericRe
         await Repository.SaveChangesAsync();
     }
 
-    public IEnumerable<M> Get(Expression<Func<M, bool>> filter = null, Func<IQueryable<M>, IOrderedQueryable<M>> orderBy = null)
+    public IEnumerable<M> Get(Expression<Func<M, bool>> filter = null, Func<IQueryable<M>, IOrderedQueryable<M>> orderBy = null, int? skip = null, int? take = null, bool disableTracking = true, params string[] includedProperties)
     {
-        return Repository.Get(filter, orderBy).ToList();
+        return Repository.Get(filter, orderBy, skip, take, disableTracking, includedProperties).ToList();
     }
 
-    public async Task<IEnumerable<M>> GetAsync(Expression<Func<M, bool>> filter = null, Func<IQueryable<M>, IOrderedQueryable<M>> orderBy = null)
+    public async Task<IEnumerable<M>> GetAsync(Expression<Func<M, bool>> filter = null, Func<IQueryable<M>, IOrderedQueryable<M>> orderBy = null, int? skip = null, int? take = null, bool disableTracking = true, params string[] includedProperties)
     {
-        return await Repository.GetAsync(filter, orderBy);
+        return await Repository.GetAsync(filter, orderBy, skip, take, disableTracking, includedProperties);
     }
 
     public virtual void HardDelete(M entity)
