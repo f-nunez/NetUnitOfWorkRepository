@@ -65,6 +65,26 @@ public class GenericRepository<M> : IGenericRepository<M> where M : ModelBase
         await DeleteAsync(await GetByIdAsync(id));
     }
 
+    public void DeleteRange(IEnumerable<M> entities)
+    {
+        foreach (var entity in entities)
+        {
+            entity.IsActive = false;
+        }
+
+        UpdateRange(entities);
+    }
+
+    public async Task DeleteRangeAsync(IEnumerable<M> entities)
+    {
+        foreach (var entity in entities)
+        {
+            entity.IsActive = false;
+        }
+
+        await UpdateRangeAsync(entities);
+    }
+
     public void Dispose()
     {
         Dispose(true);

@@ -11,6 +11,8 @@ public interface IGenericRepository<M> : IDisposable where M : ModelBase
     Task DeleteAsync(M entity);
     void DeleteById(int id);
     Task DeleteByIdAsync(int id);
+    void DeleteRange(IEnumerable<M> entities);
+    Task DeleteRangeAsync(IEnumerable<M> entities);
     Task<IEnumerable<N>> ExecuteStoredProcedureValuesAsync<N>(string query, Dictionary<string, object> parameters = null, string connectionString = null, int? commandTimeOut = null);
     bool Exists(Expression<Func<M, bool>> filter);
     Task<bool> ExistsAsync(Expression<Func<M, bool>> filter);
