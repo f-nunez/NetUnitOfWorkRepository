@@ -1,5 +1,6 @@
 using System.Reflection;
 using Fnunez.UnitOfWork.Data.Abstractions;
+using Fnunez.UnitOfWork.Data.Repositories;
 
 namespace Fnunez.UnitOfWork.Data;
 
@@ -7,6 +8,8 @@ public class UnitOfWork : IUnitOfWork
 {
     private UnitOfWorkDbContext dbContext;
     #region Repositories
+    private CustomerRepository customerRepository;
+    private ShippingAddressRepository shippingAddressRepository;
     #endregion
 
     public UnitOfWork(UnitOfWorkDbContext dbContext)
@@ -41,5 +44,7 @@ public class UnitOfWork : IUnitOfWork
 
     private void StartupRepositories()
     {
+        customerRepository = new CustomerRepository(dbContext);
+        shippingAddressRepository = new ShippingAddressRepository(dbContext);
     }
 }
