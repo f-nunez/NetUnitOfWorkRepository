@@ -11,11 +11,29 @@ Install as global vars the ef command for easy life.
 dotnet tool install --global dotnet-ef
 ```
 
-At solution's root folder you should execute the following command to create the data base.
+Restore project dependencies. Running the following command at Solution's folder.
 ```bash
-dotnet ef database update -p .\Fnunez.UnitOfWork.Data\ -s .\Fnunez.UnitOfWork.Web\ -c UnitOfWorkDbContext -v
+dotnet restore
+
+eg:
+C:\Repositories\NetUnitOfWorkRepository> dotnet restore
 ```
 
-## API on swagger
-Test the CRUD methods through Swagger.
-https://localhost:your_port/Swagger/index.html
+Apply migration to create the data base. At solution's folder just execute the following command.
+```bash
+dotnet ef database update -p .\Fnunez.UnitOfWork.Data\ -s .\Fnunez.UnitOfWork.Api\ -c UnitOfWorkDbContext -v
+
+eg:
+C:\Repositories\NetUnitOfWorkRepository> dotnet ef database update -p .\Fnunez.UnitOfWork.Data\ -s .\Fnunez.UnitOfWork.Api\ -c UnitOfWorkDbContext -v
+```
+
+## Test API
+At APi folder run the following command to test the CRUD methods through Swagger.
+```bash
+dotnet watch run
+
+eg:
+C:\Repositories\NetUnitOfWorkRepository\Fnunez.UnitOfWork.Api> dotnet watch run
+```
+
+(n_n)/
