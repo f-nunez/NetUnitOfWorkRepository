@@ -255,11 +255,6 @@ public class GenericRepository<M> : IGenericRepository<M> where M : ModelBase
             DbContext.Entry(entity).State = EntityState.Modified;
             return;
         }
-
-        if (entry.State == EntityState.Modified)
-        {
-            DbContext.SaveChanges();
-        }
     }
 
     public async Task UpdateAsync(M entity)
@@ -285,11 +280,6 @@ public class GenericRepository<M> : IGenericRepository<M> where M : ModelBase
         {
             DbContext.Entry(entity).State = EntityState.Modified;
             return;
-        }
-
-        if (entry.State == EntityState.Modified)
-        {
-            await DbContext.SaveChangesAsync();
         }
     }
 
@@ -320,8 +310,6 @@ public class GenericRepository<M> : IGenericRepository<M> where M : ModelBase
                 continue;
             }
         }
-
-        DbContext.SaveChanges();
     }
 
     public async Task UpdateRangeAsync(IEnumerable<M> entities)
@@ -344,14 +332,13 @@ public class GenericRepository<M> : IGenericRepository<M> where M : ModelBase
                 }
                 continue;
             }
+
             if (entry.State == EntityState.Unchanged)
             {
                 DbContext.Entry(entity).State = EntityState.Modified;
                 continue;
             }
         }
-
-        DbContext.SaveChanges();
     }
 
     public void Upsert(M entity)
